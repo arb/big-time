@@ -2,7 +2,7 @@ var Code = require('code');
 var Lab = require('lab');
 var lab = exports.lab = Lab.script();
 
-var BigTime = require('../');
+var BigTime = require('../lib');
 
 var describe = lab.describe;
 var it = lab.it;
@@ -38,23 +38,35 @@ describe('Timeout', function () {
 
         it('will adjust the remaining timeout after a run for really large numbers', function (done) {
 
-            var real = setTimeout;
-            setTimeout = function (func, delay, name) {
+            // Make testing easier
+            var max = BigTime._TIMEOUT_MAX;
+            BigTime._TIMEOUT_MAX = 1000;
 
-                process.nextTick(function () {
+            var orig = setTimeout;
+            var counter = 3;
+            process.nextTick(function () {
 
-                    result.start = function () {
+                setTimeout = function () {
 
-                        expect(name).to.equal('john doe');
-                        expect(result._delay).to.equal(852516353);
-                        setTimeout = real;
-                        done();
-                    };
-                    return real(func, 100);
-                });
-            };
+                    counter--;
 
-            var result = BigTime.setTimeout(internals.ignore, 3000000000, 'john doe');
+                    expect(result._delay).to.be.between((counter * 1000 - 1), ((counter + 1) * 1000));
+                    expect(arguments).to.have.length(4);
+                    orig.apply(null, arguments);
+                };
+            });
+
+            var result = BigTime.setTimeout(function (name, foo) {
+
+                expect(name).to.equal('john doe');
+                expect(foo).to.be.true();
+                expect(arguments).to.have.length(2);
+                setTimeout = orig;
+                BigTime._TIMEOUT_MAX = max;
+                // 1 because there is a setTimeout we don't catch due to needed process.nextTick and the real setTimeout is called.
+                expect(counter).to.equal(1);
+                done();
+            }, 3000, 'john doe', true);
         });
 
         it('passes arguments through like native setTimeout', function (done) {
