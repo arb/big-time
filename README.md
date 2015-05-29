@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/big-time.svg)](https://www.npmjs.com/package/big-time)
 
 
-Reworking of [long-timeout](https://github.com/tellnes/long-timeout) that has more features and follows correct semver and has unit tests. Big-Time is a custom timer class to allow really long values into `setTimeout` that are larger than Node would normally support (2^31-1).
+Reworking of [long-timeout](https://github.com/tellnes/long-timeout) that has more features, follows correct semver, and has unit tests. Big-Time is a custom timer class to allow really long values into `setTimeout` that are larger than Node would normally support (2^31-1).
 
 ## Usage
 
