@@ -2,7 +2,7 @@ var Code = require('code');
 var Lab = require('lab');
 var lab = exports.lab = Lab.script();
 
-var BigTime = require('../');
+var BigTime = require('../lib');
 
 var describe = lab.describe;
 var it = lab.it;
@@ -39,8 +39,8 @@ describe('Timeout', function () {
         it('will adjust the remaining timeout after a run for really large numbers', function (done) {
 
             // Make testing easier
-            var max = BigTime.TIMEOUT_MAX;
-            BigTime.TIMEOUT_MAX = 1000;
+            var max = BigTime._TIMEOUT_MAX;
+            BigTime._TIMEOUT_MAX = 1000;
 
             var orig = setTimeout;
             var counter = 3;
@@ -62,7 +62,7 @@ describe('Timeout', function () {
                 expect(foo).to.be.true();
                 expect(arguments).to.have.length(2);
                 setTimeout = orig;
-                BigTime.TIMEOUT_MAX = max;
+                BigTime._TIMEOUT_MAX = max;
                 // 1 because there is a setTimeout we don't catch due to needed process.nextTick and the real setTimeout is called.
                 expect(counter).to.equal(1);
                 done();
