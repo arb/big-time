@@ -1,5 +1,5 @@
 # Big-Time
-[![Build Status](https://travis-ci.org/continuationlabs/big-time.svg)](https://travis-ci.org/continuationlabs/big-time)
+[![Build Status](https://travis-ci.org/continuationlabs/big-time.svg?branch=master)](https://travis-ci.org/continuationlabs/big-time)
 [![npm](https://img.shields.io/npm/v/big-time.svg)](https://www.npmjs.com/package/big-time)
 
 
