@@ -2,10 +2,11 @@
   "name": "big-time",
   "version": "1.0.3",
   "description": "Big time makes it possible to have a timeout that is longer than 24.8 days (2^31-1 milliseconds).",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "lab -T test/transformer.js -m 5000 -t 95 -v -La code",
-    "prepublish": "babel lib --out-dir dist"
+    "compile": "babel src --out-dir lib",
+    "prepublish": "npm run compile"
   },
   "repository": {
     "type": "git",

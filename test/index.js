@@ -2,7 +2,7 @@ var Code = require('code');
 var Lab = require('lab');
 var lab = exports.lab = Lab.script();
 
-var BigTime = require('../lib');
+var BigTime = require('../src');
 
 var describe = lab.describe;
 var it = lab.it;
