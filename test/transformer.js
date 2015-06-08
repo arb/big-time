@@ -5,7 +5,7 @@ module.exports = [{
     transform: function (content, filename) {
 
         // Make sure to only transform your code or the dependencies you want
-        if (filename.indexOf('lib') >= 0) {
+        if (filename.indexOf('src') >= 0) {
             var result = Babel.transform(content, {
                 sourceMap: 'inline',
                 filename: filename,
