@@ -2,10 +2,10 @@
   "name": "big-time",
   "version": "1.0.2",
   "description": "Big time makes it possible to have a timeout that is longer than 24.8 days (2^31-1 milliseconds).",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "lab -m 5000 -t 100 -v -La code",
-    "test-cov-html": "lab -m 5000 -r html -o coverage.html -La code"
+    "test": "lab -T test/transformer.js -m 5000 -t 95 -v -La code",
+    "prepublish": "babel lib --out-dir dist"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/continuationlabs/big-time",
   "devDependencies": {
+    "babel": "5.5.x",
+    "babel-core": "5.5.x",
+    "babel-eslint": "3.1.x",
     "code": "1.x.x",
     "lab": "5.x.x"
   }
