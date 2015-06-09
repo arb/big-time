@@ -1,4 +1,4 @@
-let TIMEOUT_MAX = 2147483647; // 2^31-1
+const TIMEOUT_MAX = 2147483647; // 2^31-1
 
 class Timeout {
     constructor (callback, delay, ...args) {
@@ -8,24 +8,23 @@ class Timeout {
         this.start(args);
     }
     start (args) {
-        // Edit this copy instead of the original to prevent changing args
-        // on every tick
-        let self = this;
+
         let _args = args.slice(0);
-        let max = module.exports._TIMEOUT_MAX;
+        const max = module.exports._TIMEOUT_MAX;
 
         if (this._delay <= max) {
-            _args.unshift(this._callback, this._delay);
+
+            _args = [this._callback, this._delay, ..._args];
         }
         else {
-            let callback = function () {
+            const callback = () => {
 
-                self._delay -= max;
-                self.start(args);
+                this._delay -= max;
+                this.start(args);
             };
-            _args.unshift(callback, max);
+            _args = [callback, max, ..._args];
         }
-        this._timeout = setTimeout.apply(null, _args);
+        this._timeout = setTimeout(..._args);
     }
     close () {
 
@@ -33,14 +32,9 @@ class Timeout {
     }
 }
 
-const _setTimeout = function () {
+const _setTimeout = (...args) => new Timeout(...args);
 
-    var result = Object.create(Timeout.prototype);
-    Timeout.apply(result, arguments);
-    return result;
-};
-
-const _clearTimeout = function (timer) {
+const _clearTimeout = (timer) => {
 
     timer.close();
 };
