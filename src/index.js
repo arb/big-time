@@ -32,12 +32,9 @@ class Timeout {
     }
 }
 
-const _setTimeout = function (...args) {
+const _setTimeout = (...args) => new Timeout(...args);
 
-    return new Timeout(...args);
-};
-
-const _clearTimeout = function (timer) {
+const _clearTimeout = (timer) => {
 
     timer.close();
 };
