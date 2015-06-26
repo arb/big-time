@@ -1,1 +1,2 @@
-src/*
+# Do not include lib/ here because npm prepublish is also called on local npm install
+# This is intentionally blank.
