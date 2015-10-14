@@ -9,7 +9,9 @@ module.exports = [{
             var result = Babel.transform(content, {
                 sourceMap: 'inline',
                 filename: filename,
-                sourceFileName: filename
+                sourceFileName: filename,
+                auxiliaryCommentBefore: '$lab:coverage:off$',
+                auxiliaryCommentAfter: '$lab:coverage:on$'
             });
             return result.code;
         }
