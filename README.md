@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/continuationlabs/big-time.svg?branch=master)](https://travis-ci.org/continuationlabs/big-time)
 [![npm](https://img.shields.io/npm/v/big-time.svg)](https://www.npmjs.com/package/big-time)
 
+[![belly-button-style](https://cdn.rawgit.com/continuationlabs/belly-button/master/badge.svg)](https://github.com/continuationlabs/belly-button)
 
 Reworking of [long-timeout](https://github.com/tellnes/long-timeout) that has more features, follows correct semver, and has unit tests. Big-Time is a custom timer class to allow really long values into `setTimeout` that are larger than Node would normally support (2^31-1).
 
