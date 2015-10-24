@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run lint && lab -T test/transformer.js -v -t 100 -a code -m 10000",
     "compile": "babel src --out-dir lib",
-    "lint": "eslint src",
+    "lint": "belly-button --i 'src/**.js' --i 'test/**.js'",
     "prepublish": "npm run compile"
   },
   "repository": {
@@ -22,10 +22,8 @@
   "devDependencies": {
     "babel": "5.8.x",
     "babel-core": "5.8.x",
+    "belly-button": "1.x.x",
     "code": "1.x.x",
-    "eslint": "1.x.x",
-    "eslint-config-hapi": "3.x.x",
-    "eslint-plugin-hapi": "1.x.x",
     "lab": "6.x.x"
   }
 }
