@@ -77,11 +77,19 @@ describe('Timeout', function () {
       expect(result._delay).to.equal(100);
       expect(result._timeout._idleTimeout).to.equal(100);
 
-      process.nextTick(function () {
+      setImmediate(function () {
         BigTime.clearTimeout(result);
         expect(result._timeout._idleTimeout).to.equal(-1);
         done();
       });
+    });
+    it('is a no-op when passing a falsy value', function (done) {
+      expect(function () {
+        BigTime.clearTimeout(undefined);
+        BigTime.clearTimeout(null);
+        BigTime.clearTimeout(true);
+      }).to.not.throw();
+      done();
     });
   });
 });
