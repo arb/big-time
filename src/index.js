@@ -29,7 +29,7 @@ class Timeout {
 
 const _setTimeout = (...args) => { return new Timeout(...args); };
 
-const _clearTimeout = (timer) => { return timer.close(); };
+const _clearTimeout = (timer) => { timer && typeof timer.close === 'function' && timer.close(); };
 
 module.exports = {
   setTimeout: _setTimeout,
