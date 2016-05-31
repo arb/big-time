@@ -1,28 +1,28 @@
 'use strict';
-var Code = require('code');
-var Lab = require('lab');
-var BigTime = require('../src');
+const Code = require('code');
+const Lab = require('lab');
+const BigTime = require('../lib');
 
-var lab = exports.lab = Lab.script();
-var describe = lab.describe;
-var it = lab.it;
-var expect = Code.expect;
+const lab = exports.lab = Lab.script();
+const describe = lab.describe;
+const it = lab.it;
+const expect = Code.expect;
 
-var internals = {
-  ignore: function () {}
+const internals = {
+  ignore: () => {}
 };
 
-describe('Timeout', function () {
-  describe('setTimeout()', function () {
-    it('returns a new Timeout object', function (done) {
-      var result = BigTime.setTimeout(done, 100);
+describe('Timeout', () => {
+  describe('setTimeout()', () => {
+    it('returns a new Timeout object', (done) => {
+      const result = BigTime.setTimeout(done, 100);
       expect(result._callback).to.be.a.function();
       expect(result._delay).to.equal(100);
       expect(result._timeout._idleTimeout).to.equal(100);
     });
 
-    it('will allow really large numbers that built-in setTimeout will not', function (done) {
-      var result = BigTime.setTimeout(internals.ignore, 3000000000);
+    it('will allow really large numbers that built-in setTimeout will not', (done) => {
+      const result = BigTime.setTimeout(internals.ignore, 3000000000);
       expect(result._callback).to.be.a.function();
       expect(result._delay).to.equal(3000000000);
       expect(result._timeout._idleTimeout).to.equal(2147483647);
@@ -32,26 +32,27 @@ describe('Timeout', function () {
       done();
     });
 
-    it('will adjust the remaining timeout after a run for really large numbers', function (done) {
+    it('will adjust the remaining timeout after a run for really large numbers', (done) => {
       // Make testing easier
-      var max = BigTime._TIMEOUT_MAX;
+      const max = BigTime._TIMEOUT_MAX;
+      var result;
       BigTime._TIMEOUT_MAX = 1000;
 
-      var orig = setTimeout;
-      var counter = 3;
-      process.nextTick(function () {
-        setTimeout = function () {  // eslint-disable-line no-native-reassign, no-undef
+      const orig = setTimeout;
+      let counter = 3;
+      process.nextTick(() => {
+        setTimeout = (...args) => {  // eslint-disable-line no-native-reassign, no-undef
           counter--;
           expect(result._delay).to.be.between((counter * 1000 - 1), ((counter + 1) * 1000));
-          expect(arguments).to.have.length(4);
-          orig.apply(null, arguments);
+          expect(args).to.have.length(4);
+          orig.apply(null, args);
         };
       });
 
-      var result = BigTime.setTimeout(function (name, foo) {
-        expect(name).to.equal('john doe');
-        expect(foo).to.be.true();
-        expect(arguments).to.have.length(2);
+      result = BigTime.setTimeout((...args) => {
+        expect(args[0]).to.equal('john doe');
+        expect(args[1]).to.be.true();
+        expect(args).to.have.length(2);
         setTimeout = orig;  // eslint-disable-line no-native-reassign, no-undef
         BigTime._TIMEOUT_MAX = max;
         // 1 because there is a setTimeout we don't catch due to needed process.nextTick and the real setTimeout is called.
@@ -60,8 +61,8 @@ describe('Timeout', function () {
       }, 3000, 'john doe', true);
     });
 
-    it('passes arguments through like native setTimeout', function (done) {
-      BigTime.setTimeout(function (x, y, z) {
+    it('passes arguments through like native setTimeout', (done) => {
+      BigTime.setTimeout((x, y, z) => {
         expect(x).to.equal('foo');
         expect(y).to.equal('bar');
         expect(z).to.equal('baz');
@@ -70,21 +71,21 @@ describe('Timeout', function () {
     });
   });
 
-  describe('clearTimeout()', function () {
-    it('cleans up all of the setTimeout objects', function (done) {
-      var result = BigTime.setTimeout(internals.ignore, 100);
+  describe('clearTimeout()', () => {
+    it('cleans up all of the setTimeout objects', (done) => {
+      const result = BigTime.setTimeout(internals.ignore, 100);
       expect(result._callback).to.be.a.function();
       expect(result._delay).to.equal(100);
       expect(result._timeout._idleTimeout).to.equal(100);
 
-      setImmediate(function () {
+      setImmediate(() => {
         BigTime.clearTimeout(result);
         expect(result._timeout._idleTimeout).to.equal(-1);
         done();
       });
     });
-    it('is a no-op when passing a falsy value', function (done) {
-      expect(function () {
+    it('is a no-op when passing a falsy value', (done) => {
+      expect(() => {
         BigTime.clearTimeout(undefined);
         BigTime.clearTimeout(null);
         BigTime.clearTimeout(true);

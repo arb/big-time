@@ -2,29 +2,27 @@
   "name": "big-time",
   "version": "1.1.0",
   "description": "Big time makes it possible to have a timeout that is longer than 24.8 days (2^31-1 milliseconds).",
+  "author": "Continuation Labs <contact@continuation.io> (http://continuation.io/)",
   "main": "lib/index.js",
-  "scripts": {
-    "test": "npm run lint && lab -T test/transformer.js -I __core-js_shared__ -v -t 100 -a code -m 10000",
-    "compile": "babel src --out-dir lib",
-    "lint": "belly-button --i 'src/**.js' --i 'test/**.js'",
-    "prepublish": "npm run compile"
-  },
+  "homepage": "https://github.com/continuationlabs/big-time",
   "repository": {
     "type": "git",
     "url": "git://github.com/continuationlabs/big-time.git"
   },
-  "author": "Continuation Labs",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/continuationlabs/big-time/issues"
   },
-  "homepage": "https://github.com/continuationlabs/big-time",
+  "license": "MIT",
+  "scripts": {
+    "test": "npm run lint && lab -v -a code -c -m 10000",
+    "lint": "belly-button -f"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "devDependencies": {
-    "babel-cli": "6.1.x",
-    "babel-core": "6.0.x",
-    "babel-preset-es2015": "6.0.x",
-    "belly-button": "1.x.x",
-    "code": "1.x.x",
-    "lab": "6.x.x"
+    "belly-button": "2.x.x",
+    "code": "3.x.x",
+    "lab": "10.x.x"
   }
 }
