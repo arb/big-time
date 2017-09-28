@@ -31,7 +31,7 @@ bt.clearTimeout(timer);
 Creates a new Big-Time timer object and starts the timer where:
 
 - `callback` - the function to execute after `delay` milliseconds has passed. `callback` will be called with `arg1, arg2, arg3...` if they are passed into `setTimeout`, exactly like native `setTimeout`
-- `delay` - the number of milliseconds to wait before executing `callback`. Must be an integer.
+- `delay` - an integer representing the number of milliseconds to wait before executing `callback`. Alternatively, a `Date` instance can be provided. In this scenario, the delay is computed by subtracting `Date.now()` from the `Date` instance.
 - `[arg1, arg2, arg3,...]` - optional `N` number of extra parameters that will be passed back into `callback`.
 
 ### `bt.clearTimeout(timer)`
