@@ -37,3 +37,22 @@ Creates a new Big-Time timer object and starts the timer where:
 ### `bt.clearTimeout(timer)`
 
 Clears a running Big-Time object.
+
+### `Timeout.prototype.ref()`
+
+When called, requests that the Node.js event loop not exit so long as the
+`Timeout` is active. Calling `timeout.ref()` multiple times will have no effect.
+
+By default, all `Timeout` objects are "ref'd", making it normally unnecessary to
+call `timeout.ref()` unless `timeout.unref()` had been called previously.
+
+Returns a reference to the `Timeout`.
+
+### `Timeout.prototype.unref()`
+
+When called, the active `Timeout` object will not require the Node.js event loop
+to remain active. If there is no other activity keeping the event loop running,
+the process may exit before the `Timeout` object's callback is invoked. Calling
+`timeout.unref()` multiple times will have no effect.
+
+Returns a reference to the `Timeout`.

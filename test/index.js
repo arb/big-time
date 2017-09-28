@@ -91,4 +91,41 @@ describe('Timeout', () => {
       done();
     });
   });
+
+  describe('ref() and unref()', () => {
+    it('toggles ref value', (done) => {
+      const timer = BigTime.setTimeout(internals.ignore, BigTime._TIMEOUT_MAX);
+      let result;
+
+      expect(timer._ref).to.equal(true);
+      result = timer.unref();
+      expect(timer._ref).to.equal(false);
+      expect(result).to.shallow.equal(timer);
+      result = timer.ref();
+      expect(timer._ref).to.equal(true);
+      expect(result).to.shallow.equal(timer);
+      done();
+    });
+
+    it('retains ref state when timers are adjusted', (done) => {
+      const max = BigTime._TIMEOUT_MAX;
+      const orig = setTimeout;
+      BigTime._TIMEOUT_MAX = 500;
+      const result = BigTime.setTimeout(() => {
+        expect(result._ref).to.equal(false);
+        done();
+      }, 1000);
+
+      expect(result._ref).to.equal(true);
+      result.unref();
+      expect(result._ref).to.equal(false);
+
+      setTimeout = (...args) => {  // eslint-disable-line no-global-assign, no-undef
+        setTimeout = orig;  // eslint-disable-line no-global-assign, no-undef
+        BigTime._TIMEOUT_MAX = max;
+        expect(result._ref).to.equal(false);
+        return orig.apply(null, args);
+      };
+    });
+  });
 });
