@@ -1,6 +1,8 @@
 # Big-Time
-[![Build Status](https://travis-ci.org/continuationlabs/big-time.svg?branch=master)](https://travis-ci.org/continuationlabs/big-time)
-[![npm](https://img.shields.io/npm/v/big-time.svg)](https://www.npmjs.com/package/big-time)
+
+[![Current Version](https://img.shields.io/npm/v/big-time.svg)](https://www.npmjs.org/package/big-time)
+[![Build Status via Travis CI](https://travis-ci.org/continuationlabs/big-time.svg?branch=master)](https://travis-ci.org/continuationlabs/big-time)
+![Dependencies](http://img.shields.io/david/continuationlabs/big-time.svg)
 
 [![belly-button-style](https://cdn.rawgit.com/continuationlabs/belly-button/master/badge.svg)](https://github.com/continuationlabs/belly-button)
 
@@ -9,16 +11,15 @@ Reworking of [long-timeout](https://github.com/tellnes/long-timeout) that has mo
 ## Usage
 
 ```js
-var bt = require('big-time');
+'use strict';
+const bt = require('big-time');
 
-bt.setTimeout(function () {
-
-    console.log('if you wait for this, it will eventually log');
+bt.setTimeout(() => {
+  console.log('if you wait for this, it will eventually log');
 }, Number.MAX_VALUE);
 
-var timer = bt.setTimeout(function () {
-
-    console.log('shorter');
+const timer = bt.setTimeout(() => {
+  console.log('shorter');
 }, 1000);
 bt.clearTimeout(timer);
 ```

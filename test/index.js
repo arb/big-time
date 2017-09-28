@@ -1,12 +1,10 @@
 'use strict';
-const Code = require('code');
 const Lab = require('lab');
 const BigTime = require('../lib');
 
 const lab = exports.lab = Lab.script();
-const describe = lab.describe;
-const it = lab.it;
-const expect = Code.expect;
+const { describe, it } = lab;
+const expect = Lab.expect;
 
 const internals = {
   ignore: () => {}
@@ -41,7 +39,7 @@ describe('Timeout', () => {
       const orig = setTimeout;
       let counter = 3;
       process.nextTick(() => {
-        setTimeout = (...args) => {  // eslint-disable-line no-native-reassign, no-undef
+        setTimeout = (...args) => {  // eslint-disable-line no-global-assign, no-undef
           counter--;
           expect(result._delay).to.be.between((counter * 1000 - 1), ((counter + 1) * 1000));
           expect(args).to.have.length(4);
@@ -53,7 +51,7 @@ describe('Timeout', () => {
         expect(args[0]).to.equal('john doe');
         expect(args[1]).to.be.true();
         expect(args).to.have.length(2);
-        setTimeout = orig;  // eslint-disable-line no-native-reassign, no-undef
+        setTimeout = orig;  // eslint-disable-line no-global-assign, no-undef
         BigTime._TIMEOUT_MAX = max;
         // 1 because there is a setTimeout we don't catch due to needed process.nextTick and the real setTimeout is called.
         expect(counter).to.equal(1);
