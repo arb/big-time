@@ -67,6 +67,19 @@ describe('Timeout', () => {
         done();
       }, 100, 'foo', 'bar', 'baz');
     });
+
+    it('supports Date instances as the delay', (done) => {
+      const now = Date.now();
+
+      BigTime.setTimeout(() => {
+        const finished = Date.now();
+        // Make sure that roughly a second has passed. Allow for some wiggle
+        // room on slow CI machines.
+        expect(finished - now).to.be.greaterThan(800);
+        expect(finished - now).to.be.lessThan(1500);
+        done();
+      }, new Date(now + 1000));
+    });
   });
 
   describe('clearTimeout()', () => {
