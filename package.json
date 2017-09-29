@@ -1,6 +1,6 @@
 {
   "name": "big-time",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Big time makes it possible to have a timeout that is longer than 24.8 days (2^31-1 milliseconds).",
   "author": "Continuation Labs <contact@continuation.io> (http://continuation.io/)",
   "main": "lib/index.js",
