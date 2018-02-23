@@ -3,8 +3,8 @@
 [![Current Version](https://img.shields.io/npm/v/big-time.svg)](https://www.npmjs.org/package/big-time)
 [![Build Status via Travis CI](https://travis-ci.org/continuationlabs/big-time.svg?branch=master)](https://travis-ci.org/continuationlabs/big-time)
 ![Dependencies](http://img.shields.io/david/continuationlabs/big-time.svg)
+[![belly-button-style](https://img.shields.io/badge/eslint-bellybutton-4B32C3.svg)](https://github.com/continuationlabs/belly-button)
 
-[![belly-button-style](https://cdn.rawgit.com/continuationlabs/belly-button/master/badge.svg)](https://github.com/continuationlabs/belly-button)
 
 Reworking of [long-timeout](https://github.com/tellnes/long-timeout) that has more features, follows correct semver, and has unit tests. Big-Time is a custom timer class to allow really long values into `setTimeout` that are larger than JavaScript would normally support (2^31-1).
 
