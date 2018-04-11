@@ -1,8 +1,7 @@
 # Big-Time
 
 [![Current Version](https://img.shields.io/npm/v/big-time.svg)](https://www.npmjs.org/package/big-time)
-[![Build Status via Travis CI](https://travis-ci.org/continuationlabs/big-time.svg?branch=master)](https://travis-ci.org/continuationlabs/big-time)
-![Dependencies](http://img.shields.io/david/continuationlabs/big-time.svg)
+[![Build Status via Travis CI](https://travis-ci.org/arb/big-time.svg?branch=master)](https://travis-ci.org/arb/big-time)
 [![belly-button-style](https://img.shields.io/badge/eslint-bellybutton-4B32C3.svg)](https://github.com/continuationlabs/belly-button)
 
 
