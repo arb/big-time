@@ -1,16 +1,17 @@
-'use strict';
+
+
 const Lab = require('lab');
 const BigTime = require('../lib');
 
 const lab = exports.lab = Lab.script();
 const { describe, it } = lab;
-const expect = Lab.expect;
+const { expect } = Lab;
 
 const internals = {
-  ignore: () => {}
+  ignore: () => {},
 };
 
-describe('Timeout', () => {
+describe('Timeout', { timeout: 4000 }, () => {
   describe('setTimeout()', () => {
     it('returns a new Timeout object', (done) => {
       const result = BigTime.setTimeout(done, 100);
@@ -33,17 +34,17 @@ describe('Timeout', () => {
     it('will adjust the remaining timeout after a run for really large numbers', (done) => {
       // Make testing easier
       const max = BigTime._TIMEOUT_MAX;
-      var result;
+      let result;
       BigTime._TIMEOUT_MAX = 1000;
 
       const orig = setTimeout;
       let counter = 3;
       process.nextTick(() => {
-        setTimeout = (...args) => {  // eslint-disable-line no-global-assign, no-undef
-          counter--;
+        setTimeout = (...args) => { // eslint-disable-line no-global-assign, no-undef
+          counter -= 1;
           expect(result._delay).to.be.between((counter * 1000 - 1), ((counter + 1) * 1000));
           expect(args).to.have.length(4);
-          orig.apply(null, args);
+          orig(...args);
         };
       });
 
@@ -51,9 +52,10 @@ describe('Timeout', () => {
         expect(args[0]).to.equal('john doe');
         expect(args[1]).to.be.true();
         expect(args).to.have.length(2);
-        setTimeout = orig;  // eslint-disable-line no-global-assign, no-undef
+        setTimeout = orig; // eslint-disable-line no-global-assign, no-undef
         BigTime._TIMEOUT_MAX = max;
-        // 1 because there is a setTimeout we don't catch due to needed process.nextTick and the real setTimeout is called.
+        // 1 because there is a setTimeout we don't
+        // catch due to needed process.nextTick and the real setTimeout is called.
         expect(counter).to.equal(1);
         done();
       }, 3000, 'john doe', true);
@@ -133,11 +135,11 @@ describe('Timeout', () => {
       result.unref();
       expect(result._ref).to.equal(false);
 
-      setTimeout = (...args) => {  // eslint-disable-line no-global-assign, no-undef
-        setTimeout = orig;  // eslint-disable-line no-global-assign, no-undef
+      setTimeout = (...args) => { // eslint-disable-line no-global-assign, no-undef
+        setTimeout = orig; // eslint-disable-line no-global-assign, no-undef
         BigTime._TIMEOUT_MAX = max;
         expect(result._ref).to.equal(false);
-        return orig.apply(null, args);
+        return orig(...args);
       };
     });
   });
