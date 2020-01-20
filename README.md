@@ -2,7 +2,7 @@
 
 [![Current Version](https://flat.badgen.net/npm/v/big-time)](https://www.npmjs.org/package/big-time)
 [![Build Status](https://flat.badgen.net/travis/arb/big-time)](https://travis-ci.org/arb/big-time)
-[![airbnb-style](https://flat.badgen.net/badge/eslint/airbnb/ff5a5f)](https://github.com/airbnb/javascript)
+[![airbnb-style](https://flat.badgen.net/badge/eslint/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
 
 
 Reworking of [long-timeout](https://github.com/tellnes/long-timeout) that has more features, follows correct semver, and has unit tests. Big-Time is a custom timer class to allow really long values into `setTimeout` that are larger than JavaScript would normally support (2^31-1).
