@@ -14,14 +14,20 @@
   },
   "license": "MIT",
   "scripts": {
-    "test": "npm run lint && lab -v -a code -c -m 10000",
-    "lint": "belly-button -f"
+    "test": "is-ci 'test:ci' 'test:local'",
+    "test:local": "jest --watch --verbose",
+    "test:ci": "jest --ci --detectOpenHandles"
   },
   "engines": {
     "node": ">=6.0.0"
   },
   "devDependencies": {
-    "belly-button": "4.x.x",
-    "lab": "14.x.x"
+    "eslint": "6.8.x",
+    "eslint-config-airbnb-base": "14.x.x",
+    "eslint-plugin-import": "2.x.x",
+    "expect": "24.x.x",
+    "is-ci-cli": "2.x.x",
+    "jest": "24.x.x",
+    "jest-runner-eslint": "0.7.x"
   }
 }
